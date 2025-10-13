@@ -7,6 +7,18 @@ public class MyDate {
     public static final String ERR_INVALID_DAY = "Day value not valid";
     public static final String ERR_INVALID_DATE = "Invalid date";
 
+    public int day;
+    public int year;
+    public Months monthNumber;
+    public MyDate(){
+
+    }
+    public MyDate(int day, Months month, int year) {
+        this.day = day;
+        this.monthNumber = month;
+        this.year = year;
+    }
+
     public enum Months {
         JANUARY(1),
         FEBRUARY(2),
@@ -21,7 +33,7 @@ public class MyDate {
         NOVEMBER(11),
         DECEMBER(12);
 
-        public final int monthNumber;
+
 
         private Months(int monthNumber) {
             this.monthNumber = monthNumber;

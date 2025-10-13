@@ -62,7 +62,7 @@ public class MyDateTest {
         // This test will be successful if an exception is thrown
         try {
             myDate = new MyDate(31, MyDate.Months.MARCH, 2023);
-            myDate.setMonth(month);
+            myDate.setMonth();
         }
         catch (IllegalArgumentException ex) {
             if (ex.getMessage().equals(MyDate.ERR_INVALID_MONTH))
