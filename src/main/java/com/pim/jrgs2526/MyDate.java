@@ -1,5 +1,7 @@
 package com.pim.jrgs2526;
 
+import java.time.Month;
+
 public class MyDate {
 
     public static final String ERR_INVALID_YEAR = "Year value not valid";
@@ -9,14 +11,27 @@ public class MyDate {
 
     public int day;
     public int year;
-    public Months monthNumber;
+    public Months months;
     public MyDate(){
 
     }
     public MyDate(int day, Months month, int year) {
         this.day = day;
-        this.monthNumber = month;
+        this.months = month;
         this.year = year;
+    }
+    public void setDay(int day) {
+        this.day = day;
+    }
+    public void setYear(int year){
+        this.year = year;
+    }
+
+    public void setMonth() {
+        this.months = months;
+    }
+    public void setMonth(Months months) {
+        this.months = months;
     }
 
     public enum Months {
@@ -31,12 +46,17 @@ public class MyDate {
         SEPTEMBER(9),
         OCTOBER(10),
         NOVEMBER(11),
-        DECEMBER(12);
+        DECEMBER(12),
+        ERR_INVALID_MONTH(13);
 
-
+        private int monthNumber;
 
         private Months(int monthNumber) {
-            this.monthNumber = monthNumber;
+            if(monthNumber < 1 || monthNumber > 12)
+                this.monthNumber = 13;
+            else {
+                this.monthNumber = monthNumber;
+            }
         }
 
         public static Months toMonth( int monthNumber ) {
