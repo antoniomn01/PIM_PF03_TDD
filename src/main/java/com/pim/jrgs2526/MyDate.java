@@ -16,8 +16,11 @@ public class MyDate {
 
     }
     public MyDate(int day, Months month, int year) {
-        if(year > 0 )
-            this.year = year;
+
+        if(!isDateValid(day,month,year)){
+            throw new IllegalArgumentException(ERR_INVALID_DATE);
+        }
+        this.year = year;
         this.months = month;
         this.day = day;
     }
@@ -25,7 +28,8 @@ public class MyDate {
         this.day = day;
     }
     public void setYear(int year){
-        this.year = year;
+        if (isLeapYear(year))
+            this.year = year;
     }
 
     public void setMonth() {
@@ -33,6 +37,31 @@ public class MyDate {
     }
     public void setMonth(Months months) {
         this.months = months;
+    }
+
+    public static boolean isLeapYear(int year) {
+        return  ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
+    }
+    public static boolean isDateValid(int day,Months months,int year ){
+        return (isLeapYear(year) &&
+                months == Months.FEBRUARY &&
+                day != 29);
+    }
+    public static boolean checkMonths(int day, Months months,int year){
+        if(months == Months.JANUARY || months == Months.MARCH
+                ||months == Months.MAY ||months == Months.JULY ||months == Months.AUGUST
+                ||months == Months.OCTOBER ||months == Months.DECEMBER ){
+            if(day > 0 && day <= 31)
+                return true;
+        }
+        if(months == Months.APRIL ||months == Months.JUNE
+                || months == Months.SEPTEMBER ||months == Months.NOVEMBER)
+            if(day > 0 && day <= 30)
+                return true;
+        if(months == Months.FEBRUARY && isLeapYear(year)){
+            
+        }
+        return false;
     }
 
     public enum Months {
