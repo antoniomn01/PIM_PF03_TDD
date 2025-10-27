@@ -15,11 +15,11 @@ public class MyDate {
     public MyDate(){
 
     }
-    // falta hacer cosas
     public MyDate(int day, Months month, int year) {
-        this.day = day;
+        if(year > 0 )
+            this.year = year;
         this.months = month;
-        this.year = year;
+        this.day = day;
     }
     public void setDay(int day) {
         this.day = day;
