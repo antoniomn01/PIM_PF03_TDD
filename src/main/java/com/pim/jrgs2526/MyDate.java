@@ -17,7 +17,7 @@ public class MyDate {
     }
     public MyDate(int day, Months month, int year) {
 
-        if(!isDateValid(day,month,year)){
+        if(!isValidDay(day,month,year)){
             throw new IllegalArgumentException(ERR_INVALID_DATE);
         }
         this.year = year;
@@ -25,6 +25,8 @@ public class MyDate {
         this.day = day;
     }
     public void setDay(int day) {
+        if(day <= 0 || day > 31)
+            throw new IllegalArgumentException(ERR_INVALID_DAY);
         this.day = day;
     }
     public void setYear(int year){
@@ -42,12 +44,14 @@ public class MyDate {
     public static boolean isLeapYear(int year) {
         return  ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
     }
-    public static boolean isDateValid(int day,Months months,int year ){
-        return (isLeapYear(year) &&
-                months == Months.FEBRUARY &&
-                day != 29);
+    public static boolean isFebruaryValid(int day,Months months,int year ){
+        if(isLeapYear(year) && months == Months.FEBRUARY && day <= 29)
+            return true;
+        if(isLeapYear(year) && months == Months.FEBRUARY && day <= 28)
+            return true;
+        return false;
     }
-    public static boolean checkMonths(int day, Months months,int year){
+    public static boolean isValidDay(int day, Months months,int year){
         if(months == Months.JANUARY || months == Months.MARCH
                 ||months == Months.MAY ||months == Months.JULY ||months == Months.AUGUST
                 ||months == Months.OCTOBER ||months == Months.DECEMBER ){
@@ -58,9 +62,8 @@ public class MyDate {
                 || months == Months.SEPTEMBER ||months == Months.NOVEMBER)
             if(day > 0 && day <= 30)
                 return true;
-        if(months == Months.FEBRUARY && isLeapYear(year)){
-            
-        }
+        if(isFebruaryValid(day,months,year))
+            return true;
         return false;
     }
 
@@ -79,7 +82,7 @@ public class MyDate {
         DECEMBER(12),
         ERR_INVALID_MONTH(13);
 
-        private int monthNumber;
+        private final int monthNumber;
 
         private Months(int monthNumber) {
             if(monthNumber < 1 || monthNumber > 12)
